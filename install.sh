@@ -266,7 +266,7 @@ apt-get install apache2-utils apparmor apt-transport-https aufs-tools bash-compl
 
 apt-get update -y
 
-apt-cache policy docker-ce
+apt install docker.io
 
 # Let's clean up apt
 apt-get autoclean -y
