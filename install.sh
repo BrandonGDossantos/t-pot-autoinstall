@@ -247,6 +247,7 @@ apt-get update -y
 fuECHO "### Installing Updates."
 apt-get upgrade -y
 
+sudo su
 # Install packages needed
 sudo apt-get install \
     apt-transport-https \
@@ -266,7 +267,7 @@ apt-get install apache2-utils apparmor apt-transport-https aufs-tools bash-compl
 
 apt-get update -y
 
-apt install docker.io -y
+apt-get install -y docker-ce
 
 # Let's clean up apt
 apt-get autoclean -y
