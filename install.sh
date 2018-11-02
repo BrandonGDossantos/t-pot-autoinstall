@@ -238,6 +238,12 @@ case $choice in
 	;;
 esac
 
+# Let's set the hostname
+a=$(fuRANDOMWORD /opt/tpot/host/usr/share/dict/a.txt)
+n=$(fuRANDOMWORD /opt/tpot/host/usr/share/dict/n.txt)
+myHOST=$a$n
+hostnamectl set-hostname $myHOST 
+sed -i 's#127.0.1.1.*#127.0.1.1\t'"$myHOST"'#g' /etc/hosts 
 
 # End checks
 
@@ -247,7 +253,6 @@ apt-get update -y
 fuECHO "### Installing Updates."
 apt-get upgrade -y
 
-sudo su
 # Install packages needed
 sudo apt-get install \
     apt-transport-https \
@@ -262,12 +267,10 @@ sudo add-apt-repository \
    $(lsb_release -cs) \
    stable"
 
-# apt-get install apache2-utils apparmor apt-transport-https aufs-tools bash-completion build-essential ca-certificates cgroupfs-mount curl dialog dnsutils docker.io dstat ethtool genisoimage git glances html2text htop iptables iw jq libcrack2 libltdl7 lm-sensors man nginx-extras nodejs npm ntp openssh-server openssl prips syslinux psmisc pv python-pip unzip vim -y 
-apt-get install apache2-utils apparmor apt-transport-https aufs-tools bash-completion build-essential ca-certificates cgroupfs-mount curl dialog dnsutils dstat ethtool genisoimage git glances html2text htop iptables iw jq libcrack2 libltdl7 lm-sensors man nginx-extras nodejs npm ntp openssh-server openssl prips syslinux psmisc pv python-pip unzip vim -y 
-
 apt-get update -y
 
-apt-get install docker-ce -y
+# apt-get install apache2-utils apparmor apt-transport-https aufs-tools bash-completion build-essential ca-certificates cgroupfs-mount curl dialog dnsutils docker.io dstat ethtool genisoimage git glances html2text htop iptables iw jq libcrack2 libltdl7 lm-sensors man nginx-extras nodejs npm ntp openssh-server openssl prips syslinux psmisc pv python-pip unzip vim -y 
+apt-get install apache2-utils apparmor apt-transport-https aufs-tools bash-completion build-essential ca-certificates cgroupfs-mount curl docker-ce dialog dnsutils dstat ethtool genisoimage git glances html2text htop iptables iw jq libcrack2 libltdl7 lm-sensors man nginx-extras nodejs npm ntp openssh-server openssl prips syslinux psmisc pv python-pip unzip vim -y 
 
 # Let's clean up apt
 apt-get autoclean -y
@@ -348,15 +351,6 @@ git clone https://github.com/BrandonGDossantos/tpotce /opt/tpot
 fuECHO "### Adding new user."
 addgroup --gid 2000 tpot
 adduser --system --no-create-home --uid 2000 --disabled-password --disabled-login --gid 2000 tpot
-
-
-# Let's set the hostname
-a=$(fuRANDOMWORD /opt/tpot/host/usr/share/dict/a.txt)
-n=$(fuRANDOMWORD /opt/tpot/host/usr/share/dict/n.txt)
-myHOST=$a$n
-hostnamectl set-hostname $myHOST 
-sed -i 's#127.0.1.1.*#127.0.1.1\t'"$myHOST"'#g' /etc/hosts 
-
 
 # Let's patch sshd_config
 fuECHO "### Patching sshd_config to listen on port 64295 and deny password authentication."
