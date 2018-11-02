@@ -491,11 +491,11 @@ $myUSERPROMPT
 PATH="$PATH:/opt/tpot/bin"
 EOF
 
-# Build my filebeat
-docker build -t "leix:filebeat" /opt/tpot/docker/filebeat/
+# Build filebeat
+docker build -t "leix/filebeat" /opt/tpot/docker/filebeat/
 
 # Run filebeat
-docker run -d leix:filebeat
+docker run -d leix/filebeat
 
 # Let's create ews.ip before reboot and prevent race condition for first start
 /opt/tpot/bin/updateip.sh
