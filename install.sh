@@ -260,11 +260,8 @@ echo "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic nightly" 
 # Update again 
 apt update -y
 
-# Packages provided by the docker repository 
-apt-cache policy docker-ce 
-
 # Install docker-ce
-apt install docker-ce
+apt install docker-ce -y 
 
 # Let's clean up apt
 apt-get autoclean -y
