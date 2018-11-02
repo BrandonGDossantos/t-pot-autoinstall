@@ -249,7 +249,7 @@ apt-get upgrade -y
 
 # Install packages needed
 
-apt-get install apache2-utils apparmor apt-transport-https aufs-tools bash-completion build-essential ca-certificates cgroupfs-mount curl dialog dnsutils docker.io dstat ethtool genisoimage git glances html2text htop iptables iw jq libcrack2 libltdl7 lm-sensors man nginx-extras nodejs npm ntp openssh-server openssl prips software-properties-common syslinux psmisc pv python-pip unzip vim -y 
+apt-get install apache2-utils apparmor apt-transport-https aufs-tools bash-completion build-essential ca-certificates cgroupfs-mount curl dialog dnsutils dstat ethtool genisoimage git glances html2text htop iptables iw jq libcrack2 libltdl7 lm-sensors man nginx-extras nodejs npm ntp openssh-server openssl prips software-properties-common syslinux psmisc pv python-pip unzip vim -y 
 
 # Add docker key 
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
@@ -260,8 +260,11 @@ echo "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic nightly" 
 # Update again 
 apt update -y
 
-#Packages provided by the docker repository 
+# Packages provided by the docker repository 
 apt-cache policy docker-ce 
+
+# Install docker-ce
+apt install docker-ce
 
 # Let's clean up apt
 apt-get autoclean -y
