@@ -249,19 +249,7 @@ apt-get upgrade -y
 
 # Install packages needed
 
-apt-get install apache2-utils apparmor apt-transport-https aufs-tools bash-completion build-essential ca-certificates cgroupfs-mount curl dialog dnsutils dstat ethtool genisoimage git glances html2text htop iptables iw jq libcrack2 libltdl7 lm-sensors man nginx-extras nodejs npm ntp openssh-server openssl prips software-properties-common syslinux psmisc pv python-pip unzip vim -y 
-
-# Add docker key 
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-
-# Add docker 'nightly' repository
-echo "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic nightly" > /etc/apt/sources.list.d/docker-nightly.list
-
-# Update again 
-apt update -y
-
-# Install docker-ce
-apt install docker-ce -y 
+apt-get install apache2-utils apparmor apt-transport-https aufs-tools bash-completion build-essential ca-certificates cgroupfs-mount curl dialog dnsutils dstat docker.io ethtool genisoimage git glances html2text htop iptables iw jq libcrack2 libltdl7 lm-sensors man nginx-extras nodejs npm ntp openssh-server openssl prips software-properties-common syslinux psmisc pv python-pip unzip vim -y 
 
 # Let's clean up apt
 apt-get autoclean -y
@@ -502,6 +490,12 @@ tee -a /home/$myuser/.bashrc <<EOF
 $myUSERPROMPT
 PATH="$PATH:/opt/tpot/bin"
 EOF
+
+# Build my filebeat
+docker build -t "leix:filebeat" /opt/tpot/docker/filebeat/
+
+# Run filebeat
+docker run -d leix:filebeat
 
 # Let's create ews.ip before reboot and prevent race condition for first start
 /opt/tpot/bin/updateip.sh
